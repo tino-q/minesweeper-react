@@ -20,7 +20,9 @@ const App = ({ createBoardErrorCounter, board = null, onNeedBoard }) => {
   useInjectSaga({ key: 'Home', saga: mySaga });
 
   if (createBoardErrorCounter > 5) {
-    return <div> check your stuff </div>;
+    return (
+      <div> {`check your ${process.env.MINESWEEPER_API_BASE_URL} stuff`} </div>
+    );
   }
   if (!board) {
     onNeedBoard();
