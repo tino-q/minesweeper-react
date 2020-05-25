@@ -24,11 +24,15 @@ function Node({
   useEffect(() => {
     const elem = document.getElementById(`node-${x}.${y}`);
     if (!elem) return;
-    elem.addEventListener('contextmenu', event => {
-      if (event) event.preventDefault();
-      onFlagNode();
-    });
-  }, []);
+    const handler = event => {
+      if (event) {
+        event.preventDefault();
+        onFlagNode();
+      }
+    };
+    elem.addEventListener('contextmenu', handler);
+    return () => elem.removeEventListener('contextmenu', handler);
+  }, [onFlagNode]);
   const imgStyle = { height: '80%' };
   const color = hint || hint === '0' || hint === 0 ? 'white' : 'grey';
   let content;
