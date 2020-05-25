@@ -19,9 +19,7 @@ const app = (state = DEFAULT_STATE, action) => {
       }
       return { ...state };
     case BOARD_UPDATE:
-      if (action.board.won) {
-        alert("Congratulations you've won the game!");
-      }
+	
       return {
         ...state,
         board: action.board,

@@ -161,7 +161,7 @@ const App = ({
           <div
             style={{ marginTop: '30px', fontSize: '16px', alignSelf: 'center' }}
           >
-            <Stopwatch epoch={board.begin_epoch_ms} enabled={!board.mines} />
+            <Stopwatch epoch={board.begin_epoch_ms} enabled={!board.mines && !board.won} />
           </div>
           <div
             style={{ marginTop: '40px', fontSize: '16px', alignSelf: 'center' }}
