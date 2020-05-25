@@ -8,6 +8,8 @@ import whiteFlagPng from '../../resources/white_flag.png';
 import bombPng from '../../resources/bomb.png';
 import explosionPng from '../../resources/boom.png';
 
+const imgStyle = { height: '80%' };
+
 function Node({
   x,
   y,
@@ -33,22 +35,17 @@ function Node({
     elem.addEventListener('contextmenu', handler);
     return () => elem.removeEventListener('contextmenu', handler);
   }, [onFlagNode]);
-  const imgStyle = { height: '80%' };
-  const color = hint || hint === '0' || hint === 0 ? 'white' : 'grey';
-  let content;
-  if (color === 'grey' && flag) {
-    content = <img src={whiteFlagPng} style={imgStyle} alt="T" />;
-  }
-  if (color === 'white' && hint > 0) {
-    content = hint;
-  }
-  if (mine) {
-    content = <img src={bombPng} style={imgStyle} alt="T" />;
-  }
+  const gotHint = hint || hint === '0' || hint === 0;
+  let content = '';
   if (explosion) {
     content = <img src={explosionPng} style={imgStyle} alt="T" />;
-  }
-  if (questionMark) {
+  } else if (gotHint) {
+    content = hint > 0 ? hint : '';
+  } else if (mine) {
+    content = <img src={bombPng} style={imgStyle} alt="T" />;
+  } else if (flag) {
+    content = <img src={whiteFlagPng} style={imgStyle} alt="T" />;
+  } else if (questionMark) {
     content = '?';
   }
   return (
@@ -66,7 +63,7 @@ function Node({
         width: `${size}px`,
         borderStyle: 'solid',
         borderWidth: 'thin',
-        background: color,
+        background: gotHint ? 'white' : 'grey',
         margin: '1px',
         fontSize: `${Math.floor(size * 0.6)}px`,
         display: 'flex',
